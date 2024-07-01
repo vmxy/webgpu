@@ -71,8 +71,8 @@ jobs:
         run: |
           printf `pwd`/dawn > PATH_TO_DAWN
           npm install
-          npm run all --dawnversion=${{ Version }}
-          ls -l generated/${{ Version }}/*/build/Release
+          npm run all --dawnversion=${{ env.Version }}
+          ls -l generated/${{ env.Version }}/*/build/Release
   
       # windows
       - name: Windows - Add tools for dawn
@@ -106,8 +106,8 @@ jobs:
           [System.IO.File]::WriteAllText("$pwd/PATH_TO_DAWN", ((Resolve-Path .\dawn).Path -Replace "/$" -Replace "\\", "/"))
           cat PATH_TO_DAWN
           npm install
-          npm run all --dawnversion=${{ Version }}
-          ls generated/${{ Version }}/*/build/Release
+          npm run all --dawnversion=${{ env.Version }}
+          ls generated/${{ env.Version }}/*/build/Release
 
       # upload
       - name: Upload build
