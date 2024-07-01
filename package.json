@@ -1,6 +1,7 @@
 {
   "name": "webgpu",
   "main": "index.js",
+  "types": "index.d.ts",
   "version": "0.1.16",
   "engines": {
     "node": ">= 13.0.0"

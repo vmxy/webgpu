@@ -68,7 +68,8 @@ function copyFiles() {
     let targetDir = buildOutputDir;
     let files = [
       // src folder
-      [`./src/`, targetDir + "/../../src/"]
+      [`./src/`, targetDir + "/../../src/"],
+      ["index.d.ts", targetDir]
     ];
     // add win32 runtime files
     if (platform === "win32") {

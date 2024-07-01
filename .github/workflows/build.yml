@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on: 
+   push:
+      branches:
+         # - "**"
+         - "main"
 
 jobs:
   build:
@@ -15,14 +19,14 @@ jobs:
 
     steps:
       - name: Checkout webgpu
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Checkout dawn
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          repository: maierfelix/dawn-ray-tracing
+          repository: google/dawn
           ref: bae8c688fe96d7fd07136d05b4a6931e9e6ead4d
           path: dawn
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: '13.x'
 
