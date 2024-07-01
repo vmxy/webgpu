@@ -16,7 +16,7 @@ export function getExplortDeclarationName(name) {
   return "GPU" + name.substr(4);
 };
 
-export function getASTNodeByName(name, ast) {
+export function getASTNodeByName(name, ast) { 
   for (let ii = 0; ii < ast.length; ++ii) {
     let node = ast[ii];
     if (node.textName === name) {
