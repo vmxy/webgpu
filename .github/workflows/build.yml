@@ -11,9 +11,9 @@ jobs:
     strategy:
       matrix:
         os:
-          - windows-latest
+          #- windows-latest
           - ubuntu-latest
-          - macos-latest
+          #- macos-latest
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
@@ -106,7 +106,7 @@ jobs:
 
       # upload
       - name: Upload build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: generated-${{ matrix.os }}
           path: generated
@@ -117,19 +117,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout webgpu
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Download linux build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: generated-ubuntu-latest
           path: generated
       - name: Download windows build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: generated-windows-latest
           path: generated
       - name: Download macos build
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: generated-macos-latest
           path: generated

@@ -1,10 +1,10 @@
 {
-  "name": "webgpu",
+  "name": "@vmxy/webgpu",
   "main": "index.js",
   "types": "index.d.ts",
-  "version": "0.1.16",
+  "version": "0.2.0",
   "engines": {
-    "node": ">= 13.0.0"
+    "node": ">= 16.0.0"
   },
   "config": {
     "DAWN_PATH": "PATH_TO_DAWN",
