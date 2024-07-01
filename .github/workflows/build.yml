@@ -28,7 +28,7 @@ jobs:
           path: dawn
       - uses: actions/setup-node@v3
         with:
-          node-version: '13.x'
+          node-version: '16.x'
 
       # linux /macos
       - name: Linux/MacOS - Add tools for dawn
