@@ -51,7 +51,7 @@ jobs:
 
       - name: Linux - Install tools and libs from apt
         if: matrix.os == 'ubuntu-latest'
-        run: |
+        run: | 
           sudo apt-get install -y \
             clang \
             libosmesa6-dev \
