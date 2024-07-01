@@ -71,7 +71,7 @@ function copyFiles() {
       [`./src/`, targetDir + "/../../src/"],
       ["index.d.ts", targetDir]
     ];
-    // add win32 runtime files
+    // add win32 runtime files 
     if (platform === "win32") {
       files.push([`${baseDir}/GLFW/glfw3.dll`, targetDir]);
       files.push([`${baseDir}/DXC/dxcompiler.dll`, targetDir]);
