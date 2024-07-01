@@ -2,7 +2,7 @@ import fs from "fs";
 import https from "https";
 import nunjucks from "nunjucks";
 
-import pkg from "../package.json";
+import pkg from "../package.json" assert { type: "json" };
 
 import {
   warn,

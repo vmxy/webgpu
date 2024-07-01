@@ -5,27 +5,31 @@ on:
       branches:
          # - "**"
          - "main"
+env:
+  Version: "0.2.0"
 
 jobs:
   build:
     strategy:
       matrix:
         os:
-          #- windows-latest
+          - windows-latest
           - ubuntu-latest
-          #- macos-latest
+          - macos-latest
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout webgpu
         uses: actions/checkout@v3
+        
       - name: Checkout dawn
         uses: actions/checkout@v3
         with:
-          repository: google/dawn
+          repository: vmxy/dawn
           #ref: bae8c688fe96d7fd07136d05b4a6931e9e6ead4d
           path: dawn
+
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -40,6 +44,7 @@ jobs:
           cd dawn
           cp scripts/standalone.gclient .gclient
           gclient sync
+
       - name: Linux - Install tools and libs from apt
         if: matrix.os == 'ubuntu-latest'
         run: |
@@ -66,8 +71,8 @@ jobs:
         run: |
           printf `pwd`/dawn > PATH_TO_DAWN
           npm install
-          npm run all --dawnversion=0.0.1
-          ls -l generated/0.0.1/*/build/Release
+          npm run all --dawnversion=${{ Version }}
+          ls -l generated/${{ Version }}/*/build/Release
   
       # windows
       - name: Windows - Add tools for dawn
@@ -101,8 +106,8 @@ jobs:
           [System.IO.File]::WriteAllText("$pwd/PATH_TO_DAWN", ((Resolve-Path .\dawn).Path -Replace "/$" -Replace "\\", "/"))
           cat PATH_TO_DAWN
           npm install
-          npm run all --dawnversion=0.0.1
-          ls generated/0.0.1/*/build/Release
+          npm run all --dawnversion=${{ Version }}
+          ls generated/${{ Version }}/*/build/Release
 
       # upload
       - name: Upload build
