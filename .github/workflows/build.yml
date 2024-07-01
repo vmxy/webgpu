@@ -45,7 +45,7 @@ jobs:
           export PATH=`pwd`/depot_tools:$PATH
           cd dawn
           cp scripts/standalone.gclient .gclient
-          gclient sync
+          gclient sync 
         env:
           SCCACHE_GHA_ENABLED: "true"
 
