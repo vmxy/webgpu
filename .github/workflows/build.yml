@@ -39,7 +39,7 @@ jobs:
       # linux /macos
       - name: Linux/MacOS - Add tools for dawn
         if: matrix.os != 'windows-latest'
-        shell: bash
+        shell: bash 
         run: |  
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           export PATH=`pwd`/depot_tools:$PATH
