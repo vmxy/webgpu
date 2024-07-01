@@ -57,7 +57,10 @@ jobs:
             libxinerama-dev \
             libxrandr-dev \
             libxxf86vm-dev \
-            
+      
+      - name: Set up sccache
+        uses: mozilla-actions/sccache-action@v0.0.3     
+
       - name: Linux/MacOS - Build dawn
         if: matrix.os != 'windows-latest'
         shell: bash
@@ -66,6 +69,8 @@ jobs:
           cd dawn
           gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
           ninja -C out/Shared
+        env:
+          SCCACHE_GHA_ENABLED: "true"
           
       - name: Linux/MacOS - Build webgpu
         if: matrix.os != 'windows-latest'
