@@ -22,7 +22,9 @@ export function getASTNodeByName(name, ast) {
     if (node.textName === name) return node;
   };
   warn(`Cannot resolve AST node for '${name}'`);
-  return null;
+  return {
+    values: []
+  };
 };
 
 export function getASTCategoryByName(name, ast) {
