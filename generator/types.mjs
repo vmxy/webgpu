@@ -19,7 +19,10 @@ export function getExplortDeclarationName(name) {
 export function getASTNodeByName(name, ast) {
   for (let ii = 0; ii < ast.length; ++ii) {
     let node = ast[ii];
-    if (node.textName === name) return node;
+    if (node.textName === name) {
+      node.values = node.values || [];
+      return node;
+    }
   };
   warn(`Cannot resolve AST node for '${name}'`);
   return {
