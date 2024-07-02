@@ -61,7 +61,7 @@ jobs:
             libxinerama-dev \
             libxrandr-dev \
             libxxf86vm-dev \
-      
+       
       - name: Linux/MacOS - Build dawn
         if: matrix.os != 'windows-latest'
         shell: bash
