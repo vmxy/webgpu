@@ -169,7 +169,7 @@ export default function generateAST(ast) {
             if (!nativeDefaultValue.length) {
               return warn(`Cannot resolve default value for '${node.externalName}'.'${child.name}'`);
             }
-            child.defaultValueNative = nativeDefaultValue[0].value;
+            child.defaultValueNative = nativeDefaultValue[0]?.value;
           }
           else if (defaultValue === "true" || defaultValue === "false") {
             child.defaultValue = defaultValue === "true";
@@ -183,13 +183,13 @@ export default function generateAST(ast) {
             child.defaultValue = `"${member.default}"`;
             child.defaultValueNative = getASTNodeByName(member.type, ast).values.filter(({ name }) => {
               return name === member.default;
-            })[0].value;
+            })[0]?.value || null;
           }
           else {
             warn(`Unexpected default value for '${node.externalName}'.'${child.name}'`);
           }
         }
-        node.children.push(child);
+        child && child.defaultValueNative && node.children.push(child);
       });
       return node;
     });
