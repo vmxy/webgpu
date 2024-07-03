@@ -33,8 +33,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - name: Set up sccache
-        uses: mozilla-actions/sccache-action@v0.0.3     
 
       # linux /macos
       - name: Linux/MacOS - Add tools for dawn
@@ -46,17 +44,9 @@ jobs:
           cd dawn
           cp scripts/standalone.gclient .gclient
           gclient sync 
-        env:
-          SCCACHE_GHA_ENABLED: "true"
 
-      - name: Cache Linux - Install tools and libs from apt
-        id: cache-tools
-        uses: actions/cache@v4
-        with:
-          path: cache-tools-${{ matrix.os }}
-          key: cache
       - name: Linux - Install tools and libs from apt
-        if: matrix.os == 'ubuntu-latest' && steps.cache-tools.outputs.cache-hit != 'true'
+        if: matrix.os == 'ubuntu-latest'
         run: | 
           sudo apt-get install -y \
             clang \
@@ -67,14 +57,15 @@ jobs:
             libxinerama-dev \
             libxrandr-dev \
             libxxf86vm-dev 
-          ./generate-cache.sh -d cache-tools-${{ matrix.os }}
        
       - name: Cache Linux/MacOS - Build dawn
         id: cache-dawn
         uses: actions/cache@v4
         with:
-          path: cache-dawn-${{ matrix.os }}
-          key: cache
+          path: |
+            dawn/out/Shared
+          key: cache-${{ matrix.os }}-${{ hashFiles('**/utils_gen.json_tarball') }}
+
       - name: Linux/MacOS - Build dawn
         if: matrix.os != 'windows-latest' && steps.cache-dawn.outputs.cache-hit != 'true'
         shell: bash
@@ -82,9 +73,7 @@ jobs:
           export PATH=`pwd`/depot_tools:$PATH
           cd dawn
           gn gen out/Shared --target_cpu="x64" --args="is_component_build=true is_debug=false is_clang=true"
-          ninja -C out/Shared
-          ./generate-cache.sh -d cache-dawn-${{ matrix.os }}
-      
+          ninja -C out/Shared      
       
       - name: Linux/MacOS - Build webgpu
         if: matrix.os != 'windows-latest'
