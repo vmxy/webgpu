@@ -62,7 +62,7 @@ jobs:
         id: cache-dawn
         uses: actions/cache@v4
         with:
-          path: |
+          path: | 
             dawn/out/Shared
           key: cache-${{ matrix.os }}-${{ hashFiles('**/utils_gen.json_tarball') }}
 
